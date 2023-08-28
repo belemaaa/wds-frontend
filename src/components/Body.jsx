@@ -1,6 +1,7 @@
 import React from 'react'
 import climate from '../assets/climate.jpg'
 import breeze from '../assets/breeze.jpg'
+import {BiSolidArrowFromLeft} from 'react-icons/bi'
 import Header from './Header'
 
 const Body = () => {
@@ -16,14 +17,15 @@ const Body = () => {
                         </div>
                         <div className='flex flex-col text-center md:ml-16 lg:ml-16'>
                             {/* <img src={breeze} className='w-8 h-8'/> */}
-                            <p className='text-xl font-light md:text-3xl mt-10 md:-mt-16 tracking-tighter'>
-                                Enter a city to retrieve the current weather data
+                            <p className='text-xl font-semibold md:text-3xl mt-10 md:-mt-16 tracking-tighter'>
+                                Enter a city to retrieve the current weather data:      
                             </p>
                             <form method='POST'>
                                 <input 
                                 typeof='text'
                                 placeholder='e.g Lagos'
-                                className='border border-black w-80 mt-10 h-10 text-center placeholder:text-black placeholder:font-light'
+                                className='border border-black w-80 mt-10 h-10 text-center placeholder:text-gray-400 placeholder:font-light
+                                rounded-sm'
                                 />
                             </form>
                         </div>
