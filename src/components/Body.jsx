@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import climate from '../assets/climate.jpg'
 import breeze from '../assets/breeze.jpg'
 import {BiSolidArrowFromLeft} from 'react-icons/bi'
+import {IoIosArrowBack} from 'react-icons/io'
 import Header from './Header'
 
 
@@ -10,6 +11,10 @@ const Body = () => {
     const [showData, setShowData] =  useState(false)
     const [data, setData] = useState([])
     const [error, setError] = useState('')
+
+    const GoBack = () => {
+        setShowData(false)
+    }
 
     const fetchWeatherData = async (e) => {
         e.preventDefault()
@@ -53,21 +58,52 @@ const Body = () => {
                 <div className='bg-white md:rounded-lg h-[800px] md:h-[600px] shadow-sm'>
                     <div className='flex flex-col md:flex-row items-center'>
                         <div>
-                            <img src={climate} className='items-center justify-center md:ml-0 lg:ml-16 w-[380px] md:w-[450px] lg:w-[550px] md:h-[530px] md:my-8 rounded-lg'/>
+                            <img src={climate} className='items-center justify-center md:ml-0 lg:ml-16 w-[360px] md:w-[450px] lg:w-[550px] md:h-[530px] md:my-8 rounded-lg'/>
                         </div>
                         <div className='flex flex-col text-center md:ml-16 lg:ml-16'>
                             {showData ? (
-                                <div>
-                                    <p className='text-3xl'>Weather Data</p>
+                                <div className='lg:ml-24 text-start mt-10 md:-mt-16'>
+                                    <button onClick={GoBack}>
+                                        <IoIosArrowBack/>
+                                    </button>
+                                    <p className='text-xl text-center font-semibold md:text-2xl mt-8 tracking-tighter'>
+                                        Current weather condition in {data.city}
+                                    </p>
+                                    <p className='my-4 font-semibold text-lg text-slate-600'>City: 
+                                    <span className='font-normal text-black px-6'>
+                                        {data.city}
+                                    </span>
+                                    </p>
+                                    <p className='my-4 font-semibold text-lg text-slate-600'>Timezone: 
+                                    <span className='font-normal text-black  pl-6'>
+                                        {data.timezone}
+                                    </span>
+                                    </p>
+                                    <p className='my-4 font-semibold text-lg text-slate-600'>Temperature: 
+                                    <span className='font-normal text-black  pl-6'>
+                                        {data.temperature} (Celcius)
+                                    </span>
+                                    </p>
+                                    <p className='my-4 font-semibold text-lg text-slate-600'>Humidity: 
+                                    <span className='font-normal text-black  pl-6'>
+                                        {data.humidity}%
+                                    </span>
+                                    </p>
+                                    <p className='my-4 font-semibold text-lg text-slate-600'>Weather description: 
+                                    <span className='font-normal text-black  pl-6'>
+                                        {data.description}
+                                    </span>
+                                    </p>
                                 </div>
                             ):(
                                <div>
-                                    {error && <p className='text-red-600 mt-8 -mb-10'>{error}</p>}
+                                    {error && <p className='md:hidden text-red-600 mt-8 -mb-10'>{error}</p>}
                                     <p className='text-xl font-semibold md:text-3xl mt-10 md:-mt-16 tracking-tighter'>
                                         Enter a city to retrieve the current weather data:      
                                     </p>
                                     <form method='POST' onSubmit={fetchWeatherData}>
                                         <div>
+                                            {error && <p className='hidden md:flex text-center ml-16 text-red-600 mt-8 -mb-10'>{error}</p>}
                                             <input 
                                             typeof='text'
                                             value={city}
