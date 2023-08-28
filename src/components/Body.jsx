@@ -9,6 +9,7 @@ const Body = () => {
     const [city, setCity] = useState('')
     const [showData, setShowData] =  useState(false)
     const [data, setData] = useState([])
+    const [error, setError] = useState('')
 
     const fetchWeatherData = async (e) => {
         e.preventDefault()
@@ -31,6 +32,11 @@ const Body = () => {
                 console.log('success')
                 setData(responseData.weatherdata);
                 console.log(responseData.weatherdata)
+                setCity('')
+            }
+            else if(response.status === 500){
+                setError('Input a valid city name.')
+                setCity('')
             }
             else{
                 console.log('an error occurred')
@@ -52,22 +58,29 @@ const Body = () => {
                         <div className='flex flex-col text-center md:ml-16 lg:ml-16'>
                             {showData ? (
                                 <div>
-                                    <p></p>
+                                    <p className='text-3xl'>Weather Data</p>
                                 </div>
                             ):(
                                <div>
+                                    {error && <p className='text-red-600 mt-8 -mb-10'>{error}</p>}
                                     <p className='text-xl font-semibold md:text-3xl mt-10 md:-mt-16 tracking-tighter'>
                                         Enter a city to retrieve the current weather data:      
                                     </p>
                                     <form method='POST' onSubmit={fetchWeatherData}>
-                                        <input 
-                                        typeof='text'
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                        placeholder='e.g Lagos'
-                                        className='border border-black w-80 mt-10 h-10 text-center placeholder:text-gray-400 placeholder:font-light
-                                        rounded-sm'
-                                        />
+                                        <div>
+                                            <input 
+                                            typeof='text'
+                                            value={city}
+                                            onChange={(e) => setCity(e.target.value)}
+                                            placeholder='e.g Lagos'
+                                            className='border border-black w-80 mt-10 h-10 text-center placeholder:text-gray-400 placeholder:font-light
+                                            rounded-sm'
+                                            />
+                                        </div>
+                                        
+                                        <button type='submit' className='mt-10 bg-slate-700 rounded-lg text-white px-3 py-2'>
+                                            Retrieve
+                                        </button>
                                     </form>
                                 </div>
                                 
