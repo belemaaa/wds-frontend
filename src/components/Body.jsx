@@ -1,10 +1,38 @@
-import React from 'react'
+import React, {useState} from 'react'
 import climate from '../assets/climate.jpg'
 import breeze from '../assets/breeze.jpg'
 import {BiSolidArrowFromLeft} from 'react-icons/bi'
 import Header from './Header'
+import axios from 'axios'
 
 const Body = () => {
+    const [city, setCity] = useState('')
+    const [showData, setShowData] =  useState(false)
+
+    const fetchWeatherData = async (e) => {
+        e.preventDefault()
+        try{
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+            const response = await fetch('http://127.0.0.1:8000/api/weather-data/', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({
+                    city: city
+                }),
+            })
+            if (response.status === 200){
+                setShowData(true)
+                console.log('success')
+            }
+            else{
+                console.log('an error occurred')
+            }
+        }catch(error){
+            console.error('Error: ', error)
+        }      
+    }
   return (
     <div>
         <Header/>
@@ -20,9 +48,11 @@ const Body = () => {
                             <p className='text-xl font-semibold md:text-3xl mt-10 md:-mt-16 tracking-tighter'>
                                 Enter a city to retrieve the current weather data:      
                             </p>
-                            <form method='POST'>
+                            <form method='POST' onSubmit={fetchWeatherData}>
                                 <input 
                                 typeof='text'
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
                                 placeholder='e.g Lagos'
                                 className='border border-black w-80 mt-10 h-10 text-center placeholder:text-gray-400 placeholder:font-light
                                 rounded-sm'
