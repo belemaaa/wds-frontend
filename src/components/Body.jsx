@@ -4,6 +4,7 @@ import breeze from '../assets/breeze.jpg'
 import {BiSolidArrowFromLeft} from 'react-icons/bi'
 import {IoIosArrowBack} from 'react-icons/io'
 import Header from './Header'
+import Footer from './Footer'
 
 
 const Body = () => {
@@ -53,9 +54,9 @@ const Body = () => {
   return (
     <div>
         <Header/>
-        <div className='bg-white h-screen w-screen'>
+        <div className='bg-white w-screen '>
             <div className='py-10 md:py-10 lg:px-32'>
-                <div className='bg-white md:rounded-lg h-[800px] md:h-[600px] shadow-sm'>
+                <div className='bg-white md:rounded-lg h-[600px] md:h-[600px] shadow-sm'>
                     <div className='flex flex-col md:flex-row items-center'>
                         <div>
                             <img src={climate} className='items-center justify-center md:ml-0 lg:ml-16 w-[360px] md:w-[450px] lg:w-[550px] md:h-[530px] md:my-8 rounded-lg'/>
@@ -129,6 +130,7 @@ const Body = () => {
                 </div>
             </div>         
         </div>
+        <Footer/>
     </div>
    
   )
