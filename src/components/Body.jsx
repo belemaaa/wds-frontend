@@ -15,6 +15,7 @@ const Body = () => {
 
     const GoBack = () => {
         setShowData(false)
+        setError('')
     }
 
     const fetchWeatherData = async (e) => {
